@@ -1,12 +1,19 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+
+
+import connectDB from "./config/db.js";
+import errorHandler from "./middleware/errorMiddleware.js";
+
 dotenv.config();
 
 const app  = express();
 app.use(express.json());
 app.use(cors());
 
+//global error handler
+app.use(errorHandler);
 
 app.get('/',(req,res)=>{
     res.send("Hello World");
@@ -14,4 +21,5 @@ app.get('/',(req,res)=>{
 
 app.listen(5000,()=>{
     console.log(`http://localhost:${process.env.PORT}`);
+    connectDB(); // connect to database
 })
