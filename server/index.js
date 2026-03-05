@@ -6,6 +6,8 @@ import cors from 'cors';
 import connectDB from "./config/db.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 
+import authRoutes from "./routes/authRoutes.js";
+
 dotenv.config();
 
 const app  = express();
@@ -15,9 +17,7 @@ app.use(cors());
 //global error handler
 app.use(errorHandler);
 
-app.get('/',(req,res)=>{
-    res.send("Hello World");
-})
+app.use("/api/auth", authRoutes);
 
 app.listen(5000,()=>{
     console.log(`http://localhost:${process.env.PORT}`);
