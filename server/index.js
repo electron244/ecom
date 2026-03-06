@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import path from "path";
 
 
 import connectDB from "./config/db.js";
@@ -9,6 +10,7 @@ import errorHandler from "./middleware/errorMiddleware.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
 
 dotenv.config();
@@ -24,7 +26,11 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 
+
+app.use("/uploads", express.static("uploads"));
+app.use("/api/upload", uploadRoutes);
+
 app.listen(5000,()=>{
     console.log(`http://localhost:${process.env.PORT}`);
-    connectDB(); // connect to database
+    connectDB();
 })
