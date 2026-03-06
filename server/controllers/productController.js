@@ -3,14 +3,13 @@ import Product from "../models/productModel.js";
 // CREATE PRODUCT (ADMIN)
 export const createProduct = async (req, res) => {
   try {
-    const { name, description, price, category, stock, image } = req.body;
+    const { name, description, price, category, stock } = req.body;
 
-    // validation
-    if (!name || !description || !price || !category || !stock) {
-      return res.status(400).json({
-        message: "Please provide all required fields",
-      });
-    }
+    const images = req.files
+      ? req.files.map((file) => ({
+          url: file.path,
+        }))
+      : [];
 
     const product = await Product.create({
       name,
@@ -18,7 +17,7 @@ export const createProduct = async (req, res) => {
       price,
       category,
       stock,
-      image,
+      images,
       createdBy: req.user._id,
     });
 
@@ -104,34 +103,28 @@ export const getSingleProduct = async (req, res) => {
   }
 };
 
-
 // DELETE PRODUCT (ADMIN)
 export const deleteProduct = async (req, res) => {
   try {
-
     const product = await Product.findById(req.params.id);
 
     if (!product) {
       return res.status(404).json({
-        message: "Product not found"
+        message: "Product not found",
       });
     }
 
     await product.deleteOne();
 
     res.status(200).json({
-      message: "Product deleted successfully"
+      message: "Product deleted successfully",
     });
-
   } catch (error) {
-
     res.status(500).json({
-      message: error.message
+      message: error.message,
     });
-
   }
 };
-
 
 // UPDATE PRODUCT (ADMIN)
 export const updateProduct = async (req, res) => {
@@ -164,42 +157,32 @@ export const updateProduct = async (req, res) => {
 // GET TOP RATED PRODUCTS
 export const getTopProducts = async (req, res) => {
   try {
-
-    const products = await Product.find({})
-      .sort({ ratings: -1 })
-      .limit(4);
+    const products = await Product.find({}).sort({ ratings: -1 }).limit(4);
 
     res.status(200).json(products);
-
   } catch (error) {
-
     res.status(500).json({
-      message: error.message
+      message: error.message,
     });
-
   }
 };
 
 // GET PRODUCTS BY CATEGORY
 export const getProductsByCategory = async (req, res) => {
   try {
-
     const categoryName = req.params.name;
 
     const products = await Product.find({
-      category: { $regex: categoryName, $options: "i" }
+      category: { $regex: categoryName, $options: "i" },
     });
 
     res.status(200).json({
       count: products.length,
-      products
+      products,
     });
-
   } catch (error) {
-
     res.status(500).json({
-      message: error.message
+      message: error.message,
     });
-
   }
 };
