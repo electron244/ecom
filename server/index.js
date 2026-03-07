@@ -11,6 +11,8 @@ import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+
 
 
 dotenv.config();
@@ -29,6 +31,8 @@ app.use("/api/products", productRoutes);
 
 app.use("/uploads", express.static("uploads"));
 app.use("/api/upload", uploadRoutes);
+
+app.use("/api/orders", orderRoutes);
 
 app.listen(5000,()=>{
     console.log(`http://localhost:${process.env.PORT}`);
