@@ -5,6 +5,8 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import AdminDashboard from "./pages/AdminDashboard";
+import Products from "./pages/Products";
+import ProductDetail from "./pages/ProductDetail";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer.jsx";
@@ -21,6 +23,10 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         <Route path="/cart" element={<Cart />} />
+
+        <Route path="/products" element={<Products />} />
+        
+        <Route path="/product/:id" element={<ProductDetail />} />
 
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
