@@ -33,7 +33,7 @@ function App() {
 
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
-       <Footer />
+       {/* <Footer /> */}
     </BrowserRouter>
   );
 }
