@@ -7,6 +7,7 @@ import Cart from "./pages/Cart";
 import AdminDashboard from "./pages/AdminDashboard";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
+import Profile from "./pages/Profile.jsx";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer.jsx";
@@ -23,6 +24,8 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         <Route path="/cart" element={<Cart />} />
+
+        <Route path="profile" element={<Profile />} />
 
         <Route path="/products" element={<Products />} />
         
