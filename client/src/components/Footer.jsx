@@ -1,52 +1,114 @@
-import { Link } from "react-router-dom";
+const footerShopLinks = ["Furniture", "Lighting", "Decor", "Textiles"];
+const footerHelpLinks = ["Shipping", "Returns", "Track Order", "Contact"];
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white mt-10">
-      
-      <div className="max-w-7xl mx-auto px-6 py-8 grid md:grid-cols-3 gap-6">
+    <footer className="bg-white dark:bg-background-dark border-t border-primary/5 pt-20 pb-10 transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+          {/* Brand Column */}
+          <div className="col-span-1 md:col-span-1">
+            <div className="flex items-center gap-2 mb-6">
+              <div className="text-primary">
+                <span className="material-symbols-outlined text-3xl">
+                  filter_vintage
+                </span>
+              </div>
+              <h2 className="text-xl font-extrabold tracking-tighter">
+                MINIMA
+              </h2>
+            </div>
+            <p className="text-slate-500 dark:text-slate-400 leading-relaxed">
+              Crafting quiet spaces in a loud world. Our mission is to provide
+              timeless, essential pieces for the modern home.
+            </p>
+            <div className="flex gap-4 mt-8">
+              <a
+                className="text-slate-400 hover:text-primary transition-colors"
+                href="#"
+              >
+                <span className="material-symbols-outlined">public</span>
+              </a>
+              <a
+                className="text-slate-400 hover:text-primary transition-colors"
+                href="#"
+              >
+                <span className="material-symbols-outlined">
+                  alternate_email
+                </span>
+              </a>
+              <a
+                className="text-slate-400 hover:text-primary transition-colors"
+                href="#"
+              >
+                <span className="material-symbols-outlined">movie</span>
+              </a>
+            </div>
+          </div>
 
-        {/* Brand */}
-        <div>
-          <h2 className="text-xl font-bold">ShopEasy</h2>
-          <p className="text-gray-400 mt-2">
-            Your one stop destination for amazing products at the best prices.
-          </p>
+          {/* Shop Links */}
+          <div>
+            <h4 className="font-bold text-lg mb-6">Shop</h4>
+            <ul className="space-y-4">
+              {footerShopLinks.map((link) => (
+                <li key={link}>
+                  <a
+                    className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
+                    href="#"
+                  >
+                    {link}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Help Links */}
+          <div>
+            <h4 className="font-bold text-lg mb-6">Help</h4>
+            <ul className="space-y-4">
+              {footerHelpLinks.map((link) => (
+                <li key={link}>
+                  <a
+                    className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
+                    href="#"
+                  >
+                    {link}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Store Info */}
+          <div>
+            <h4 className="font-bold text-lg mb-6">Our Store</h4>
+            <p className="text-slate-500 dark:text-slate-400 mb-4">
+              123 Minimalist Way,
+              <br />
+              Design District, CA 90210
+            </p>
+            <p className="text-slate-500 dark:text-slate-400">
+              Monday — Friday
+              <br />
+              9:00 AM — 6:00 PM
+            </p>
+          </div>
         </div>
 
-        {/* Quick Links */}
-        <div>
-          <h3 className="font-semibold mb-3">Quick Links</h3>
-          <ul className="space-y-2 text-gray-400">
-            <li>
-              <Link to="/" className="hover:text-white">Home</Link>
-            </li>
-            <li>
-              <Link to="/cart" className="hover:text-white">Cart</Link>
-            </li>
-            <li>
-              <Link to="/login" className="hover:text-white">Login</Link>
-            </li>
-            <li>
-              <Link to="/register" className="hover:text-white">Register</Link>
-            </li>
-          </ul>
+        {/* Bottom Bar */}
+        <div className="border-t border-primary/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+          <p>© 2024 MINIMA Inc. All rights reserved.</p>
+          <div className="flex gap-8">
+            <a className="hover:text-primary" href="#">
+              Privacy Policy
+            </a>
+            <a className="hover:text-primary" href="#">
+              Terms of Service
+            </a>
+          </div>
         </div>
-
-        {/* Contact */}
-        <div>
-          <h3 className="font-semibold mb-3">Contact</h3>
-          <p className="text-gray-400">Vadodara, Gujarat</p>
-          <p className="text-gray-400">support@shopeasy.com</p>
-        </div>
-
       </div>
-
-      {/* Bottom line */}
-      <div className="border-t border-gray-700 text-center py-4 text-gray-400 text-sm">
-        © {new Date().getFullYear()} ShopEasy. All rights reserved.
-      </div>
-
     </footer>
   );
 };
