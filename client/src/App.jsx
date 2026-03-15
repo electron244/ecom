@@ -1,14 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home/Home";
+import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register";
-import Cart from "./pages/Cart";
+import ShoppingCartPage from "./pages/ShoppingCartPage";
 import AdminDashboard from "./pages/AdminDashboard";
-import Products from "./pages/Products";
-import ProductDetail from "./pages/ProductDetail";
-import Profile from "./pages/Profile.jsx";
-
+import ProductListingPage from "./pages/ProductListingPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
+import UserProfilePage from "./pages/UserProfilePage.jsx";
 
 
 function App() {
@@ -21,17 +20,16 @@ function App() {
 
         <Route path="/register" element={<Register />} />
 
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<ShoppingCartPage />} />
 
-        <Route path="profile" element={<Profile />} />
+        <Route path="profile" element={<UserProfilePage />} />
 
-        <Route path="/products" element={<Products />} />
+        <Route path="/products" element={<ProductListingPage />} />
 
-        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/product/:id" element={<ProductDetailPage />} />
 
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
-      {/* <Footer /> */}
     </BrowserRouter>
   );
 }
