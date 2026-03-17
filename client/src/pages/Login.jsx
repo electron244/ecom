@@ -1,8 +1,19 @@
 import { Link } from 'react-router-dom'
 import { MdBolt, MdEmail, MdLock, MdVisibility } from 'react-icons/md'
 import { FcGoogle } from 'react-icons/fc'
+import { useForm } from 'react-hook-form'
 
 export default function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit = (data) => {
+    console.log('Login Data:', data)
+  }
+
   return (
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light">
       {/* Header */}
@@ -17,7 +28,7 @@ export default function Login() {
           <a className="text-sm font-medium text-slate-600 hover:text-primary transition-colors" href="#">Support</a>
         </div>
       </header>
-      
+
       {/* Main */}
       <main className="flex-1 flex items-center justify-center px-4 py-12 relative">
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -42,7 +53,8 @@ export default function Login() {
               <div className="flex-grow border-t border-slate-200"></div>
             </div>
 
-            <form className="space-y-5">
+            {/* ✅ handleSubmit wraps your onSubmit */}
+            <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
               {/* Email */}
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-slate-700 ml-1">Email Address</label>
@@ -51,10 +63,21 @@ export default function Login() {
                   <input
                     className="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none"
                     placeholder="name@company.com"
-                    required
                     type="email"
+                    // {/* ✅ register replaces name + required */}
+                    {...register('email', {
+                      required: 'Email is required',
+                      pattern: {
+                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                        message: 'Enter a valid email address',
+                      },
+                    })}
                   />
                 </div>
+                {/* ✅ inline error message */}
+                {errors.email && (
+                  <p className="text-xs text-red-500 ml-1">{errors.email.message}</p>
+                )}
               </div>
 
               {/* Password */}
@@ -68,23 +91,43 @@ export default function Login() {
                   <input
                     className="w-full pl-12 pr-12 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none"
                     placeholder="••••••••"
-                    required
                     type="password"
+                    // {/* ✅ register with min length validation */}
+                    {...register('password', {
+                      required: 'Password is required',
+                      minLength: {
+                        value: 6,
+                        message: 'Password must be at least 6 characters',
+                      },
+                    })}
                   />
                   <button className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600" type="button">
                     <MdVisibility className="text-xl" />
                   </button>
                 </div>
+                {/* ✅ inline error message */}
+                {errors.password && (
+                  <p className="text-xs text-red-500 ml-1">{errors.password.message}</p>
+                )}
               </div>
 
               {/* Remember */}
               <div className="flex items-center gap-2 px-1">
-                <input className="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary" id="remember" type="checkbox" />
+                <input
+                  className="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary"
+                  id="remember"
+                  type="checkbox"
+                  // {/* ✅ register checkbox — no validation needed */}
+                  {...register('rememberMe')}
+                />
                 <label className="text-sm text-slate-600 cursor-pointer" htmlFor="remember">Remember me for 30 days</label>
               </div>
 
               {/* Submit */}
-              <button className="w-full py-3 bg-primary hover:bg-primary/90 text-slate-900 font-bold rounded-xl shadow-lg shadow-primary/20 transition-all transform active:scale-[0.98]" type="submit">
+              <button
+                className="w-full py-3 bg-primary hover:bg-primary/90 text-slate-900 font-bold rounded-xl shadow-lg shadow-primary/20 transition-all transform active:scale-[0.98]"
+                type="submit"
+              >
                 Sign In
               </button>
             </form>
