@@ -1,5 +1,10 @@
-import { Link } from 'react-router-dom'
-import { MdFilterVintage, MdSearch, MdShoppingBag, MdPerson } from 'react-icons/md'
+import { Link } from "react-router-dom";
+import {
+  MdFilterVintage,
+  MdSearch,
+  MdShoppingBag,
+  MdPerson,
+} from "react-icons/md";
 
 export default function Navbar() {
   return (
@@ -18,10 +23,30 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link className="text-sm font-semibold hover:text-primary transition-colors" to="/products">Shop</Link>
-            <Link className="text-sm font-semibold hover:text-primary transition-colors" to="/products">Collections</Link>
-            <Link className="text-sm font-semibold hover:text-primary transition-colors" to="/products">New</Link>
-            <Link className="text-sm font-semibold hover:text-primary transition-colors" to="/">About</Link>
+            <Link
+              className="text-sm font-semibold hover:text-primary transition-colors"
+              to="/products"
+            >
+              Shop
+            </Link>
+            <Link
+              className="text-sm font-semibold hover:text-primary transition-colors"
+              to="/products"
+            >
+              Collections
+            </Link>
+            <Link
+              className="text-sm font-semibold hover:text-primary transition-colors"
+              to="/products"
+            >
+              New
+            </Link>
+            <Link
+              className="text-sm font-semibold hover:text-primary transition-colors"
+              to="/"
+            >
+              About
+            </Link>
           </nav>
 
           {/* Search & Actions */}
@@ -52,5 +77,5 @@ export default function Navbar() {
         </div>
       </div>
     </header>
-  )
+  );
 }
