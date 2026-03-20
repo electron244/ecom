@@ -1,18 +1,28 @@
-import { Link } from 'react-router-dom'
-import { MdBolt, MdEmail, MdLock, MdVisibility } from 'react-icons/md'
-import { FcGoogle } from 'react-icons/fc'
-import { useForm } from 'react-hook-form'
+import { Link } from "react-router-dom";
+import { MdBolt, MdEmail, MdLock, MdVisibility } from "react-icons/md";
+import { FcGoogle } from "react-icons/fc";
+import { useForm } from "react-hook-form";
+
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../features/auth/authSlice";
 
 export default function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm();
 
-  const onSubmit = (data) => {
-    console.log('Login Data:', data)
-  }
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading, error } = useSelector((s) => s.auth);
+
+  const onSubmit = async (data) => {
+    console.log("Login Data:", data);
+    const result = await dispatch(loginUser(data));
+    if (loginUser.fulfilled.match(result)) navigate("/");
+  };
 
   return (
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light">
@@ -22,10 +32,17 @@ export default function Login() {
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
             <MdBolt className="text-white text-xl" />
           </div>
-          <h2 className="text-lg font-bold leading-tight tracking-tight">MINIMA</h2>
+          <h2 className="text-lg font-bold leading-tight tracking-tight">
+            MINIMA
+          </h2>
         </Link>
         <div className="flex items-center gap-4">
-          <a className="text-sm font-medium text-slate-600 hover:text-primary transition-colors" href="#">Support</a>
+          <a
+            className="text-sm font-medium text-slate-600 hover:text-primary transition-colors"
+            href="#"
+          >
+            Support
+          </a>
         </div>
       </header>
 
@@ -37,8 +54,12 @@ export default function Login() {
         </div>
         <div className="relative z-10 w-full max-w-[480px] bg-white p-8 rounded-2xl shadow-xl shadow-primary/5 border border-slate-100">
           <div className="flex flex-col items-center text-center mb-8">
-            <h1 className="text-slate-900 text-3xl font-extrabold mb-2">Welcome Back</h1>
-            <p className="text-slate-500">Please enter your details to sign in</p>
+            <h1 className="text-slate-900 text-3xl font-extrabold mb-2">
+              Welcome Back
+            </h1>
+            <p className="text-slate-500">
+              Please enter your details to sign in
+            </p>
           </div>
           <div className="space-y-4">
             {/* Google Sign In */}
@@ -49,7 +70,9 @@ export default function Login() {
 
             <div className="relative flex py-4 items-center">
               <div className="flex-grow border-t border-slate-200"></div>
-              <span className="flex-shrink mx-4 text-xs uppercase tracking-widest text-slate-400 font-bold">Or use email</span>
+              <span className="flex-shrink mx-4 text-xs uppercase tracking-widest text-slate-400 font-bold">
+                Or use email
+              </span>
               <div className="flex-grow border-t border-slate-200"></div>
             </div>
 
@@ -57,7 +80,9 @@ export default function Login() {
             <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
               {/* Email */}
               <div className="space-y-2">
-                <label className="block text-sm font-semibold text-slate-700 ml-1">Email Address</label>
+                <label className="block text-sm font-semibold text-slate-700 ml-1">
+                  Email Address
+                </label>
                 <div className="relative">
                   <MdEmail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl" />
                   <input
@@ -65,26 +90,35 @@ export default function Login() {
                     placeholder="name@company.com"
                     type="email"
                     // {/* ✅ register replaces name + required */}
-                    {...register('email', {
-                      required: 'Email is required',
+                    {...register("email", {
+                      required: "Email is required",
                       pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: 'Enter a valid email address',
+                        message: "Enter a valid email address",
                       },
                     })}
                   />
                 </div>
                 {/* ✅ inline error message */}
                 {errors.email && (
-                  <p className="text-xs text-red-500 ml-1">{errors.email.message}</p>
+                  <p className="text-xs text-red-500 ml-1">
+                    {errors.email.message}
+                  </p>
                 )}
               </div>
 
               {/* Password */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center ml-1">
-                  <label className="block text-sm font-semibold text-slate-700">Password</label>
-                  <a className="text-xs font-bold text-primary hover:underline" href="#">Forgot password?</a>
+                  <label className="block text-sm font-semibold text-slate-700">
+                    Password
+                  </label>
+                  <a
+                    className="text-xs font-bold text-primary hover:underline"
+                    href="#"
+                  >
+                    Forgot password?
+                  </a>
                 </div>
                 <div className="relative">
                   <MdLock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl" />
@@ -93,21 +127,26 @@ export default function Login() {
                     placeholder="••••••••"
                     type="password"
                     // {/* ✅ register with min length validation */}
-                    {...register('password', {
-                      required: 'Password is required',
+                    {...register("password", {
+                      required: "Password is required",
                       minLength: {
                         value: 6,
-                        message: 'Password must be at least 6 characters',
+                        message: "Password must be at least 6 characters",
                       },
                     })}
                   />
-                  <button className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600" type="button">
+                  <button
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                    type="button"
+                  >
                     <MdVisibility className="text-xl" />
                   </button>
                 </div>
                 {/* ✅ inline error message */}
                 {errors.password && (
-                  <p className="text-xs text-red-500 ml-1">{errors.password.message}</p>
+                  <p className="text-xs text-red-500 ml-1">
+                    {errors.password.message}
+                  </p>
                 )}
               </div>
 
@@ -118,11 +157,18 @@ export default function Login() {
                   id="remember"
                   type="checkbox"
                   // {/* ✅ register checkbox — no validation needed */}
-                  {...register('rememberMe')}
+                  {...register("rememberMe")}
                 />
-                <label className="text-sm text-slate-600 cursor-pointer" htmlFor="remember">Remember me for 30 days</label>
+                <label
+                  className="text-sm text-slate-600 cursor-pointer"
+                  htmlFor="remember"
+                >
+                  Remember me for 30 days
+                </label>
               </div>
-
+              {error && (
+                <p className="text-xs text-red-500 text-center">{error}</p>
+              )}
               {/* Submit */}
               <button
                 className="w-full py-3 bg-primary hover:bg-primary/90 text-slate-900 font-bold rounded-xl shadow-lg shadow-primary/20 transition-all transform active:scale-[0.98]"
@@ -134,8 +180,13 @@ export default function Login() {
 
             <div className="text-center pt-4">
               <p className="text-sm text-slate-600">
-                Don&apos;t have an account?{' '}
-                <Link className="font-bold text-primary hover:underline" to="/register">Sign up for free</Link>
+                Don&apos;t have an account?{" "}
+                <Link
+                  className="font-bold text-primary hover:underline"
+                  to="/register"
+                >
+                  Sign up for free
+                </Link>
               </p>
             </div>
           </div>
@@ -145,12 +196,17 @@ export default function Login() {
       {/* Footer */}
       <footer className="py-8 px-6 text-center">
         <p className="text-xs text-slate-400">
-          © 2024 MINIMA Inc. All rights reserved. <span className="mx-2">|</span>
-          <a className="hover:text-primary" href="#">Privacy Policy</a>
+          © 2024 MINIMA Inc. All rights reserved.{" "}
           <span className="mx-2">|</span>
-          <a className="hover:text-primary" href="#">Terms of Service</a>
+          <a className="hover:text-primary" href="#">
+            Privacy Policy
+          </a>
+          <span className="mx-2">|</span>
+          <a className="hover:text-primary" href="#">
+            Terms of Service
+          </a>
         </p>
       </footer>
     </div>
-  )
+  );
 }
