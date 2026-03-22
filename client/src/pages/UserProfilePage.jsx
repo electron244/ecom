@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import { MdBolt, MdDashboard, MdInventory2, MdLocationOn, MdCreditCard, MdSettings, MdLogout, MdNotifications, MdEdit, MdCalendarToday, MdVerified, MdHome, MdWork, MdAdd , MdPayments, MdEmail } from 'react-icons/md'
 import { IoMdPerson } from "react-icons/io";
 
+import { useSelector } from 'react-redux'
+
 const orders = [
   { id: '#ORD-7721', date: 'Oct 12, 2023', status: 'Delivered', statusColor: 'bg-green-100 text-green-700', total: '$124.00' },
   { id: '#ORD-8832', date: 'Oct 28, 2023', status: 'In Transit', statusColor: 'bg-primary/20 text-primary', total: '$89.50' },
@@ -17,6 +19,7 @@ const sidebarLinks = [
 ]
 
 export default function UserProfilePage() {
+  const { user } = useSelector((state) => state.auth)
   return (
     <div className="bg-background-light text-slate-900 min-h-screen">
       <div className="flex min-h-screen">
@@ -42,8 +45,8 @@ export default function UserProfilePage() {
             <div className="flex items-center gap-3 mb-4">
               <div className="size-10 rounded-full bg-slate-200 bg-cover bg-center" style={{ backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuDeDNBfdrsm5FlWuTmf7f0aE6Pr_h6VvN5GodASRljT9zY0xmEYYXHeSef2-lV4w74N6c_1KhguFq2Sdh7L15lO2SMbkwD2FzbSLtL_zF3hfWRbxQxikJIptbFKXr1edu92qNJrRvVCJ6Hm2uBjJlCtCpcR3zSfEpPtaRERg-U1NNXgS6RaywElMzHZraECWKjNHvfEktAHKaekaa3nW5vPssujYY94bDXUwf8h0qmab7AxKFdDjNPeSf6BPld7wK-HcOkEi48Erm4')` }}></div>
               <div className="flex flex-col">
-                <span className="text-sm font-bold truncate">Electron</span>
-                <span className="text-xs text-slate-500 truncate">electronshop@gmail.com</span>
+                <span className="text-sm font-bold truncate">{user?.name}</span>
+                <span className="text-xs text-slate-500 truncate">{user?.email}</span>
               </div>
             </div>
             <button className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-red-500 hover:bg-red-50 transition-colors">
@@ -80,7 +83,7 @@ export default function UserProfilePage() {
                   </div>
                 </div>
                 <div className="text-center md:text-left flex-1">
-                  <h1 className="text-3xl font-black mb-1">Electron Singh</h1>
+                  <h1 className="text-3xl font-black mb-1">{user?.name}</h1>
                   <p className="text-slate-500 mb-4 flex items-center justify-center md:justify-start gap-2">
                     <MdCalendarToday className="text-sm" /> Member since Match 2026
                   </p>

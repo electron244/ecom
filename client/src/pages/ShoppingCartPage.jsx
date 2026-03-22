@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   MdShoppingBasket, MdSearch, MdShoppingCart, MdDelete,
-  MdFavorite, MdRemove, MdAdd, MdLocalShipping,
+  MdRemove, MdAdd, MdLocalShipping,
   MdArrowForward, MdSend, MdFavoriteBorder, MdCheckCircle,
   MdClose, MdErrorOutline
 } from 'react-icons/md'
